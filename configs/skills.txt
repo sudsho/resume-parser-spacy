@@ -1,0 +1,34 @@
+python
+java
+c++
+javascript
+sql
+mysql
+postgresql
+mongodb
+redis
+flask
+django
+fastapi
+react
+angular
+nodejs
+aws
+gcp
+azure
+docker
+kubernetes
+git
+linux
+machine learning
+deep learning
+nlp
+spacy
+nltk
+tensorflow
+pytorch
+keras
+scikit-learn
+pandas
+numpy
+matplotlib
