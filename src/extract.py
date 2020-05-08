@@ -15,8 +15,8 @@ def extract_text(path):
 
 
 def extract_pdf(path):
-    # TODO: pdfminer.six
-    raise NotImplementedError
+    from pdfminer.high_level import extract_text as pdf_extract
+    return pdf_extract(path)
 
 
 def extract_docx(path):
