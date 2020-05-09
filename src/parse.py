@@ -23,3 +23,17 @@ def parse_entities(text):
     for k in out:
         out[k] = list(dict.fromkeys(out[k]))
     return out
+
+
+def guess_name(text, ents=None):
+    """Pick first PERSON entity that shows up in the first ~10 lines."""
+    if ents is None:
+        ents = parse_entities(text)
+    persons = ents.get("PERSON", [])
+    if not persons:
+        return None
+    head = "\n".join(text.splitlines()[:12]).lower()
+    for p in persons:
+        if p.lower() in head:
+            return p
+    return persons[0]
