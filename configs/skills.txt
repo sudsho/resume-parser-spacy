@@ -32,3 +32,32 @@ scikit-learn
 pandas
 numpy
 matplotlib
+seaborn
+plotly
+hadoop
+spark
+hive
+kafka
+airflow
+jenkins
+jira
+agile
+scrum
+rest
+graphql
+microservices
+ci/cd
+unit testing
+selenium
+go
+golang
+rust
+ruby
+rails
+php
+swift
+kotlin
+android
+ios
+react native
+flutter
