@@ -20,5 +20,5 @@ def extract_pdf(path):
 
 
 def extract_docx(path):
-    # TODO: docx2txt
-    raise NotImplementedError
+    import docx2txt
+    return docx2txt.process(path)
