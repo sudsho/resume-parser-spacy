@@ -1,5 +1,19 @@
 """spaCy-based parsing: name, organizations, dates."""
+import re
 import spacy
+
+DEGREE_PATTERNS = [
+    r"\bb\.?\s?tech\b",
+    r"\bb\.?\s?sc\b",
+    r"\bm\.?\s?sc\b",
+    r"\bm\.?\s?tech\b",
+    r"\bphd\b",
+    r"\bmba\b",
+    r"\bbachelors?\b",
+    r"\bmasters?\b",
+    r"\bdoctorate\b",
+]
+DEGREE_RE = re.compile("|".join(DEGREE_PATTERNS), re.IGNORECASE)
 
 # load once
 _nlp = None
@@ -37,3 +51,12 @@ def guess_name(text, ents=None):
         if p.lower() in head:
             return p
     return persons[0]
+
+
+def find_education(text):
+    """Return lines that look like education entries."""
+    edu = []
+    for line in text.splitlines():
+        if DEGREE_RE.search(line):
+            edu.append(line.strip())
+    return edu
