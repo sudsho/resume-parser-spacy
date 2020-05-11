@@ -1,0 +1,18 @@
+Priya Sharma
+priya.sharma@gmail.com
++91 98765 43210
+https://github.com/priyas
+
+Education
+M.Sc Data Science, BITS Pilani, 2017 - 2019
+B.Sc Mathematics, Delhi University, 2014 - 2017
+
+Experience
+Data Scientist, Flipkart, Bangalore, July 2019 - Present
+- Recommendation system using collaborative filtering.
+- spaCy NER for review classification.
+Research Intern, IIIT Hyderabad, May 2018 - July 2018
+- Topic modeling on news articles.
+
+Skills
+Python, scikit-learn, TensorFlow, NLP, spaCy, NLTK, Docker, AWS

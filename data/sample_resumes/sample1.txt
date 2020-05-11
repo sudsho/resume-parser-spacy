@@ -1,0 +1,17 @@
+John Doe
+johndoe@example.com
++1-555-123-4567
+
+EDUCATION
+B.Tech in Computer Science, IIT Bombay, 2015 - 2019
+
+EXPERIENCE
+Software Engineer, Acme Corp, Bangalore, 2019 - Present
+- Built a Flask microservice for order ingestion.
+- Worked with Python, Postgres, and AWS Lambda.
+
+Intern, Globex Solutions, Pune, Summer 2018
+- Wrote a small Spark job for log aggregation.
+
+SKILLS
+Python, Java, SQL, Flask, Docker, AWS, Machine Learning
