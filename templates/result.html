@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Parsed: {{ filename }}</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; }
+    h1 { color: #2c3e50; }
+    h2 { color: #34495e; margin-top: 1.5em; }
+    .pill { display: inline-block; padding: 3px 10px; margin: 3px; background: #ecf0f1; border-radius: 12px; font-size: 0.9em; }
+    a { color: #2980b9; }
+    .meta { color: #888; font-size: 0.9em; }
+    .empty { color: #999; font-style: italic; }
+  </style>
+</head>
+<body>
+  <p><a href="/">&larr; Parse another</a></p>
+  <h1>Parsed: {{ filename }}</h1>
+
+  <h2>Name</h2>
+  <p>{% if result.name %}{{ result.name }}{% else %}<span class="empty">not found</span>{% endif %}</p>
+
+  <h2>Email</h2>
+  {% for e in result.emails %}<span class="pill">{{ e }}</span>{% else %}<span class="empty">not found</span>{% endfor %}
+
+  <h2>Phone</h2>
+  {% for p in result.phones %}<span class="pill">{{ p }}</span>{% else %}<span class="empty">not found</span>{% endfor %}
+
+  <h2>Education</h2>
+  <ul>
+    {% for line in result.education %}<li>{{ line }}</li>{% else %}<li class="empty">not found</li>{% endfor %}
+  </ul>
+
+  <h2>Skills</h2>
+  {% for s in result.skills %}<span class="pill">{{ s }}</span>{% else %}<span class="empty">no skills matched</span>{% endfor %}
+
+  <h2>Organizations</h2>
+  {% for o in result.organizations %}<span class="pill">{{ o }}</span>{% else %}<span class="empty">none</span>{% endfor %}
+
+  <p class="meta">Text length: {{ result._text_length }} chars.</p>
+</body>
+</html>
