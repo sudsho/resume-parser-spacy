@@ -1,0 +1,5 @@
+{"text": "John Doe is a software engineer at Acme Corp.", "entities": [[0, 8, "PERSON"], [33, 42, "ORG"]]}
+{"text": "B.Tech in Computer Science from IIT Bombay.", "entities": [[0, 27, "DEGREE"], [32, 42, "INSTITUTION"]]}
+{"text": "Priya Sharma worked at Flipkart from 2019.", "entities": [[0, 12, "PERSON"], [22, 30, "ORG"]]}
+{"text": "M.Sc Data Science, BITS Pilani, 2017.", "entities": [[0, 17, "DEGREE"], [19, 30, "INSTITUTION"]]}
+{"text": "Software Engineer at Microsoft Research.", "entities": [[20, 39, "ORG"]]}
