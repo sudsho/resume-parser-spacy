@@ -44,5 +44,32 @@ def upload():
     return render_template("result.html", result=result, filename=f.filename)
 
 
+@app.route("/parse", methods=["POST"])
+def parse_json():
+    """JSON endpoint - same as /upload but returns JSON."""
+    if "resume" not in request.files:
+        return jsonify({"error": "no file"}), 400
+    f = request.files["resume"]
+    if f.filename == "" or not allowed(f.filename):
+        return jsonify({"error": "bad file"}), 400
+    suffix = os.path.splitext(f.filename)[1].lower()
+    fd, tmp_path = tempfile.mkstemp(suffix=suffix)
+    os.close(fd)
+    try:
+        f.save(tmp_path)
+        result = parse_resume_file(tmp_path)
+    finally:
+        try:
+            os.remove(tmp_path)
+        except OSError:
+            pass
+    return jsonify(result)
+
+
+@app.route("/health", methods=["GET"])
+def health():
+    return jsonify({"status": "ok"})
+
+
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=5000)
