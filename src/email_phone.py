@@ -2,7 +2,15 @@
 import re
 
 EMAIL_RE = re.compile(r"[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+")
-PHONE_RE = re.compile(r"(\+?\d{1,3}[-.\s]?)?(\(?\d{2,4}\)?[-.\s]?)?\d{3,4}[-.\s]?\d{4}")
+
+# match international and indian formats; tightened to avoid grabbing random year ranges
+_PHONE = (
+    r"(?:\+?\d{1,3}[-.\s]?)?"
+    r"(?:\(?\d{2,4}\)?[-.\s]?)?"
+    r"\d{3,4}[-.\s]?\d{4}"
+)
+PHONE_RE = re.compile(_PHONE)
+
 URL_RE = re.compile(r"https?://[^\s)]+")
 
 
@@ -11,12 +19,22 @@ def find_emails(text):
 
 
 def find_phones(text):
-    matches = PHONE_RE.findall(text)
-    # findall with groups returns tuples; rebuild
     out = []
     for m in re.finditer(PHONE_RE, text):
-        out.append(m.group(0).strip())
-    return list(set(out))
+        candidate = m.group(0).strip()
+        # need at least 7 digits to be a phone number, not a year/zip
+        digits = re.sub(r"\D", "", candidate)
+        if len(digits) < 7:
+            continue
+        out.append(candidate)
+    # preserve order, dedup
+    seen = set()
+    uniq = []
+    for p in out:
+        if p not in seen:
+            seen.add(p)
+            uniq.append(p)
+    return uniq
 
 
 def find_urls(text):
