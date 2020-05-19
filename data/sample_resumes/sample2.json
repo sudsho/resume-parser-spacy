@@ -1,0 +1,6 @@
+{
+  "name": "Priya Sharma",
+  "emails": ["priya.sharma@gmail.com"],
+  "phones": ["+91 98765 43210"],
+  "skills": ["python", "scikit-learn", "tensorflow", "nlp", "spacy", "nltk", "docker", "aws"]
+}

@@ -1,0 +1,6 @@
+{
+  "name": "John Doe",
+  "emails": ["johndoe@example.com"],
+  "phones": ["+1-555-123-4567"],
+  "skills": ["python", "java", "sql", "flask", "docker", "aws", "machine learning"]
+}
