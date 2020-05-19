@@ -1,0 +1,12 @@
+Aisha Khan | aisha.k@outlook.com | +44 7123 456789 | https://linkedin.com/in/aishak
+
+EDUCATION
+PhD Machine Learning, University of Edinburgh, 2018-2022
+M.Sc AI, University College London, 2016-2017
+
+EXPERIENCE
+Research Scientist, DeepMind, London, 2022-Present
+Research Intern, Google, Mountain View, Summer 2019
+
+SKILLS
+Python, PyTorch, TensorFlow, NLP, Reinforcement Learning, AWS, Docker

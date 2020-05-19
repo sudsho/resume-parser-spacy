@@ -1,0 +1,6 @@
+{
+  "name": "Rohan Mehta",
+  "emails": ["rohan.mehta@yahoo.in"],
+  "phones": ["9876543210"],
+  "skills": ["python", "go", "redis", "mongodb", "kubernetes", "docker", "gcp"]
+}

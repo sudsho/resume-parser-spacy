@@ -1,0 +1,20 @@
+Rohan Mehta
+rohan.mehta@yahoo.in
+9876543210
+
+Summary
+Backend developer with 4 years of experience in scalable web services.
+
+Experience
+Senior Engineer, Zomato, Gurgaon, 2018 - Present
+- Led migration from Python 2 to Python 3 across services.
+- Owned the order pipeline.
+
+Software Engineer, Paytm, Noida, 2016 - 2018
+- Built REST APIs for the wallet team.
+
+Education
+B.E. Computer Engineering, Pune University, 2012 - 2016
+
+Skills
+Python, Go, Redis, MongoDB, Kubernetes, Docker, GCP
