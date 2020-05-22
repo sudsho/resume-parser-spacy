@@ -1,15 +1,21 @@
 """Pull raw text out of resume files."""
 import os
 
+SUPPORTED = (".pdf", ".docx", ".txt")
+
+
+def _ext(path):
+    return os.path.splitext(path)[1].lower()
+
 
 def extract_text(path):
-    ext = os.path.splitext(path)[1].lower()
+    ext = _ext(path)
     if ext == ".pdf":
         return extract_pdf(path)
     if ext == ".docx":
         return extract_docx(path)
     if ext == ".txt":
-        with open(path, "r", encoding="utf-8") as f:
+        with open(path, "r", encoding="utf-8", errors="replace") as f:
             return f.read()
     raise ValueError("unsupported extension: %s" % ext)
 
@@ -21,4 +27,4 @@ def extract_pdf(path):
 
 def extract_docx(path):
     import docx2txt
-    return docx2txt.process(path)
+    return docx2txt.process(path) or ""
