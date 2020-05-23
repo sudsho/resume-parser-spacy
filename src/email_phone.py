@@ -22,9 +22,15 @@ def find_phones(text):
     out = []
     for m in re.finditer(PHONE_RE, text):
         candidate = m.group(0).strip()
-        # need at least 7 digits to be a phone number, not a year/zip
         digits = re.sub(r"\D", "", candidate)
+        # need at least 7 digits to be a phone number, not a year/zip
         if len(digits) < 7:
+            continue
+        # too many digits = probably an account number
+        if len(digits) > 15:
+            continue
+        # likely a 4-digit year range like "2015 - 2019"
+        if re.match(r"^\d{4}\s*-\s*\d{4}$", candidate):
             continue
         out.append(candidate)
     # preserve order, dedup
