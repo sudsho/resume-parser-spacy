@@ -12,12 +12,13 @@ SECTION_HEADERS = {
 
 
 def _looks_like_header(line):
-    line_l = line.strip().lower()
-    if len(line_l) > 60:
+    line_l = line.strip().lower().rstrip(":")
+    if len(line_l) > 60 or len(line_l) < 3:
         return None
+    # all caps gives a stronger signal but we don't require it
     for key, terms in SECTION_HEADERS.items():
         for t in terms:
-            if line_l == t or line_l.startswith(t + ":") or line_l.startswith(t + " "):
+            if line_l == t:
                 return key
     return None
 
