@@ -25,7 +25,19 @@ def test_url():
 
 
 def test_no_phone_in_year():
-    # 2015 - 2019 is not a phone
-    text = "I worked at Acme from 2015 to 2019"
+    # "2015 - 2019" is not a phone
+    text = "I worked at Acme from 2015 - 2019"
     phones = find_phones(text)
     assert phones == []
+
+
+def test_multiple_emails_dedup():
+    text = "a@x.com and a@x.com are the same"
+    out = find_emails(text)
+    assert len(out) == 1
+
+
+def test_email_and_phone_together():
+    text = "Reach me at hello@me.com or 9876543210"
+    assert "hello@me.com" in find_emails(text)
+    assert any("9876543210" in p for p in find_phones(text))
