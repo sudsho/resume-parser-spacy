@@ -11,6 +11,11 @@ app.config["MAX_CONTENT_LENGTH"] = 5 * 1024 * 1024  # 5 MB
 ALLOWED = {".pdf", ".docx", ".txt"}
 
 
+@app.errorhandler(413)
+def too_large(_e):
+    return jsonify({"error": "file too large (>5MB)"}), 413
+
+
 def allowed(filename):
     ext = os.path.splitext(filename)[1].lower()
     return ext in ALLOWED
