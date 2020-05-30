@@ -18,4 +18,7 @@ ENV PYTHONUNBUFFERED=1
 
 EXPOSE 5000
 
-CMD ["gunicorn", "-w", "2", "-b", "0.0.0.0:5000", "app:app"]
+HEALTHCHECK --interval=30s --timeout=5s --retries=3 \
+  CMD wget -q -O - http://localhost:5000/health || exit 1
+
+CMD ["gunicorn", "-w", "2", "-b", "0.0.0.0:5000", "--timeout", "60", "app:app"]
