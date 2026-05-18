@@ -17,7 +17,7 @@ def build_matcher(nlp):
         None,
         [
             {"SHAPE": "dddd"},
-            {"ORTH": {"IN": ["-", "–", "to"]}},
+            {"ORTH": {"IN": ["-", "-", "to"]}},
             {"SHAPE": "dddd"},
         ],
     )
