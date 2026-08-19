@@ -2,22 +2,35 @@
 from spacy.matcher import Matcher
 
 
+def _add(matcher, key, pattern):
+    """Add a pattern across spaCy versions.
+
+    spaCy 3.x signature is matcher.add(key, patterns); spaCy 2.x was
+    matcher.add(key, on_match, *patterns). Try the modern call first and fall
+    back to the old positional-None form.
+    """
+    try:
+        matcher.add(key, [pattern])
+    except TypeError:
+        matcher.add(key, None, [pattern])
+
+
 def build_matcher(nlp):
     matcher = Matcher(nlp.vocab)
 
     # section headers
-    matcher.add("EDU_HEADER", None, [{"LOWER": "education"}])
-    matcher.add("EXP_HEADER", None, [{"LOWER": {"IN": ["experience", "employment"]}}])
-    matcher.add("SKILL_HEADER", None, [{"LOWER": "skills"}])
-    matcher.add("PROJ_HEADER", None, [{"LOWER": "projects"}])
+    _add(matcher, "EDU_HEADER", [{"LOWER": "education"}])
+    _add(matcher, "EXP_HEADER", [{"LOWER": {"IN": ["experience", "employment"]}}])
+    _add(matcher, "SKILL_HEADER", [{"LOWER": "skills"}])
+    _add(matcher, "PROJ_HEADER", [{"LOWER": "projects"}])
 
-    # year ranges like "2015 - 2019"
-    matcher.add(
+    # year ranges like "2015 - 2019" or "2015 to 2019"
+    _add(
+        matcher,
         "YEAR_RANGE",
-        None,
         [
             {"SHAPE": "dddd"},
-            {"ORTH": {"IN": ["-", "-", "to"]}},
+            {"ORTH": {"IN": ["-", "to"]}},
             {"SHAPE": "dddd"},
         ],
     )

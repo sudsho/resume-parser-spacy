@@ -13,6 +13,76 @@ Pulls these fields out of a `.pdf`, `.docx`, or `.txt` resume:
 
 Built as a weekend project to learn spaCy's `Matcher` and the small English model. Posting it here so the rough edges are visible -- the regex for phone numbers in particular is brittle, and the section splitter assumes the resume has the usual `EDUCATION / EXPERIENCE / SKILLS` headers.
 
+## Quick start (runs offline)
+
+No model download, no network, no GPU. The parser tries to load `en_core_web_sm`
+for NER (name / organizations / dates); if the model is not installed it falls
+back to a blank spaCy pipeline (`spacy.blank("en")`) plus rule-based extractors
+(regex for email / phone / education, keyword matching for skills, and a
+top-of-document heuristic for the name). Either way, parsing runs.
+
+```
+python scripts/smoke.py      # or: make smoke
+```
+
+Real output (trimmed):
+
+```
+================================================================
+resume-parser-spacy offline smoke
+sample: data/sample_resumes/sample1.txt
+================================================================
+NER model available on default path: True
+--- pass 1: default ---
+{
+  "name": "John Doe",
+  "emails": ["johndoe@example.com"],
+  "phones": ["+1-555-123-4567"],
+  "education": ["B.Tech in Computer Science, IIT Bombay, 2015 - 2019"],
+  "skills": ["python", "java", "sql", "flask", "aws", "docker", "machine learning"],
+  "sections": ["header", "education", "experience", "skills"]
+  ...
+}
+checks (pass 1: default):
+  [ok  ] email extracted
+  [ok  ] phone extracted
+  [ok  ] skill 'python' extracted
+  [ok  ] education line extracted
+  [ok  ] section 'education' detected
+  [ok  ] name == 'John Doe' (got 'John Doe')
+
+--- pass 2: forced offline (spacy.blank) ---   # RESUME_PARSER_NO_MODEL=1
+  ... same fields extracted, organizations/dates empty (no NER) ...
+
+--- pass 3: Flask serving endpoint (in-process test client) ---
+GET /health -> 200 {'status': 'ok'}
+POST /parse -> 200   (returns the parsed JSON above)
+
+================================================================
+SMOKE PASSED (offline, no model download)
+================================================================
+```
+
+The smoke runs three passes: (1) the default path (uses the model if present,
+else the blank fallback), (2) a forced-offline pass with `RESUME_PARSER_NO_MODEL=1`
+that always takes the blank path (proving no download is needed), and (3) the
+Flask `/parse` and `/health` endpoints booted in-process via the test client
+(no socket, no server process).
+
+Run the tests:
+
+```
+python -m pytest -q      # or: make test
+# 24 passed
+```
+
+**What the real model adds:** with `en_core_web_sm` installed, name / organization /
+date extraction comes from spaCy NER (higher recall on organizations and dates,
+and names that are not at the top of the page). On the blank fallback,
+`organizations` and `dates` are empty and the name comes from the top-of-document
+heuristic, but emails, phones, skills, education, and section splitting are
+unchanged because they are rule-based and never needed the model.
+
 ## Architecture
 
 ```
@@ -46,7 +116,7 @@ pip install -r requirements.txt
 python -m spacy download en_core_web_sm
 ```
 
-The spaCy model download is required because the parser uses NER for name and organization extraction.
+The spaCy model download is optional. It is only used for NER (name / organization / date). Without it the parser falls back to a blank spaCy pipeline plus rule-based extractors, so it still runs offline (see "Quick start (runs offline)" above).
 
 ## Run the Flask app
 
